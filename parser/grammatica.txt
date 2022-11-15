@@ -1,0 +1,30 @@
+
+
+
+start -> expr
+
+expr -> term exprp
+
+exprp -> + term exprp
+       | - term exprp
+       | ε
+term  -> fact termp
+termp -> * fact termp
+    | / fact termp
+    | ε
+fact  -> ( expr )
+    | NUM
+    
+    
+    
+inserire first
+
+FOLLOW(start)  = {$}
+FOLLOW(expr)  = {),$}
+FOLLOW(exprp) = {),$}
+FOLLOW(term)  = {+,-,),$}
+FOLLOW(termp) = {+,-,),$}
+FOLLOW(fact)  = {+,-,*,/,), $}
+
+
+
