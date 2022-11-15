@@ -1,0 +1,34 @@
+⟨prog⟩ ::= ⟨statlist⟩ EOF
+
+⟨statlist⟩ ::= ⟨stat⟩ ⟨statlistp⟩
+
+⟨statlistp⟩ ::= ; ⟨stat⟩ ⟨statlistp⟩ | ε
+
+⟨stat⟩ ::= assign ⟨expr ⟩ to ⟨idlist⟩
+| print [ ⟨exprlist⟩ ]
+| read [ ⟨idlist⟩ ]
+| while ( ⟨bexpr ⟩ ) ⟨stat⟩
+| conditional [ ⟨optlist⟩ ] <statp>
+| { ⟨statlist⟩ }
+
+<statp> ::= end | else <stat> end
+
+⟨idlist⟩ ::= ID ⟨idlistp⟩
+
+⟨idlistp⟩ ::= , ID ⟨idlistp⟩ | ε
+
+⟨optlist⟩ ::= ⟨optitem⟩ ⟨optlistp⟩
+
+⟨optlistp⟩ ::= ⟨optitem⟩ ⟨optlistp⟩ | ε
+
+⟨optitem⟩ ::= option ( ⟨bexpr ⟩ ) do ⟨stat⟩   //!!!
+
+⟨bexpr ⟩ ::= RELOP ⟨expr ⟩ ⟨expr ⟩
+
+⟨expr ⟩ ::= + ( ⟨exprlist⟩ ) | - ⟨expr ⟩ ⟨expr ⟩
+| * ( ⟨exprlist⟩ ) | / ⟨expr ⟩ ⟨expr ⟩
+| NUM | ID
+
+⟨exprlist⟩ ::= ⟨expr ⟩ ⟨exprlistp⟩
+
+⟨exprlistp⟩ ::= , ⟨expr ⟩ ⟨exprlistp⟩ | ε
