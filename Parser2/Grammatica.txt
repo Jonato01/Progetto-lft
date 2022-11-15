@@ -32,3 +32,8 @@
 ⟨exprlist⟩ ::= ⟨expr ⟩ ⟨exprlistp⟩
 
 ⟨exprlistp⟩ ::= , ⟨expr ⟩ ⟨exprlistp⟩ | ε
+
+NULL(statlistp)
+NULL(idlistp)
+NULL(optlistp)
+NULL(exprlistp)
