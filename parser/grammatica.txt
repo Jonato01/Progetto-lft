@@ -16,12 +16,17 @@ fact  -> ( expr )
     | NUM
     
     
-    
-inserire first
 
-FOLLOW(start)  = {$}
+FIRST(start) = {(, NUM}
+FIRST(expr)  = {(, NUM}
+FIRST(exprp) = {+, -}
+FIRST(term)  = {(, NUM}
+FIRST(termp) = {*, /}
+FIRST(fact)  = {(, NUM}
+
+FOLLOW(start) = {$}             
 FOLLOW(expr)  = {),$}
-FOLLOW(exprp) = {),$}
+FOLLOW(exprp) = {),$}   
 FOLLOW(term)  = {+,-,),$}
 FOLLOW(termp) = {+,-,),$}
 FOLLOW(fact)  = {+,-,*,/,), $}
