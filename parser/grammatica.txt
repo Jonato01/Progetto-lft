@@ -1,6 +1,4 @@
 
-
-
 start -> expr
 
 expr -> term exprp
@@ -19,9 +17,9 @@ fact  -> ( expr )
 
 FIRST(start) = {(, NUM}
 FIRST(expr)  = {(, NUM}
-FIRST(exprp) = {+, -}
+FIRST(exprp) = {+,-,ε}
 FIRST(term)  = {(, NUM}
-FIRST(termp) = {*, /}
+FIRST(termp) = {*, /,ε}
 FIRST(fact)  = {(, NUM}
 
 FOLLOW(start) = {$}             
@@ -31,5 +29,17 @@ FOLLOW(term)  = {+,-,),$}
 FOLLOW(termp) = {+,-,),$}
 FOLLOW(fact)  = {+,-,*,/,), $}
 
+Insiemi guida
 
+GUIDA(start -> expr)= {(,NUM}
+GUIDA(expr -> term exprp)={(,NUM}
+GUIDA(exprp-> + term exprp)={+}
+GUIDA(exprp-> - term exprp)={-}
+GUIDA(exprp-> ε)={),$}
+GUIDA(term -> fact termp)={(,NUM}
+GUIDA(termp -> * fact termp)={*}
+GUIDA(termp -> / fact termp)={ /}
+GUIDA(termp -> ε)={+,-,),$}
+GUIDA(fact -> ( exprp ) )={ ( }
+GUIDA(fact -> NUM)={ NUM }
 
