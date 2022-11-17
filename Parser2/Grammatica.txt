@@ -44,12 +44,12 @@ FIRST(statlistp)-> {;,$}
 FIRST(stat)-> {assign,print,read,while,conditional,{ }
 FIRST(idlist)-> {ID}
 FIRST(idlistp)-> {,}
-
-
-
-
-
-
+FIRST(optlist)->{option}
+FIRST(optitem)->{option}
+FIRST(bexpr)-> {(RELOP) ==, <>, <=, >=, <, >}
+FIRST(expr)->{+,-,*,/,NUM,ID}
+FIRST(exprlist)->{+,-,*,/,NUM,ID}
+FIRST(exprlistp)->{ , , $}
 
 
 
