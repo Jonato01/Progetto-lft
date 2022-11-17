@@ -181,7 +181,7 @@ public class Lexer {
                 // ... gestire il caso dei numeri ... //
                 int val=0;
                     do{
-                        val=val*10+peek;
+                        val=val*10+(peek-'0');
                         readch(br);
 
                     }while(Character.isDigit(peek));

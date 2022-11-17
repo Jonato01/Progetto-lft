@@ -81,6 +81,8 @@ public class Parser {
 
 
        }
+       if(look.tag!=')')
+       error("Er termp Miss )");
     }
 
     private void fact() {
