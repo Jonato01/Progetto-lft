@@ -59,6 +59,7 @@ public class Parser {
                 exprp();
                 break;
 	}
+    if(look.tag!=')' || look.tag!=Tag.EOF)
     }
 
     private void term() {
@@ -78,10 +79,8 @@ public class Parser {
             fact();
             termp();
             break;
-
-
        }
-       if(look.tag!=')')
+       if(look.tag!=')' || look.tag!='+' || look.tag!='-' || look.tag!=Tag.EOF )
        error("Er termp Miss )");
     }
 
