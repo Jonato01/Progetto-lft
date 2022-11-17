@@ -37,3 +37,24 @@ NULL(statlistp)
 NULL(idlistp)
 NULL(optlistp)
 NULL(exprlistp)
+
+FIRST(prog)-> {assign,print,read,while,conditional,{,$}
+FIRST(statlist)-> {assign,print,read,while,conditional,{ }
+FIRST(statlistp)-> {;,$}
+FIRST(stat)-> {assign,print,read,while,conditional,{ }
+FIRST(idlist)-> {ID}
+FIRST(idlistp)-> {,}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
