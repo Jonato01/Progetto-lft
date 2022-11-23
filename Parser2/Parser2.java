@@ -31,13 +31,25 @@ public class Parser2 {
     }
 
     void prog() {
-        statlist();
-        match(Tag.EOF);
+        if (look.tag == Tag.EOF) {
+            error("Empty file!");
+        } else if (look.tag == Tag.ASSIGN || look.tag == Tag.PRINT || look.tag == Tag.READ || look.tag == Tag.WHILE
+                || look.tag == Tag.COND || look.tag == '{') {
+            statlist();
+            match(Tag.EOF);
+        } else {
+            error("Error in prog");
+        }
     }
 
     void statlist() {
-        stat();
-        statlistp();
+        if (look.tag == Tag.ASSIGN || look.tag == Tag.PRINT || look.tag == Tag.READ || look.tag == Tag.WHILE
+                || look.tag == Tag.COND || look.tag == '{') {
+            stat();
+            statlistp();
+        } else {
+            error("Error in expr");
+        }
     }
 
     void statlistp() {
@@ -45,6 +57,10 @@ public class Parser2 {
             match(';');
             stat();
             statlistp();
+        } else if (look.tag == '}' || look.tag == Tag.EOF) {
+            return;
+        } else {
+            error("Error in statlistp");
         }
     }
 
@@ -94,6 +110,11 @@ public class Parser2 {
                 break;
 
             default:
+                if (look.tag == '}') {
+                    return;
+                } else {
+                    error("Error in stat");
+                }
                 break;
         }
     }
@@ -111,13 +132,19 @@ public class Parser2 {
                 break;
 
             default:
+                error("Error in statp");
                 break;
         }
     }
 
     void idlist() {
-        match(Tag.ID);
-        idlistp();
+        if (look.tag == Tag.ID) {
+            match(Tag.ID);
+            idlistp();
+        } else {
+            error("Error in idlist");
+        }
+
     }
 
     void idlistp() {
@@ -125,34 +152,55 @@ public class Parser2 {
             match(',');
             match(Tag.ID);
             idlistp();
+        } else if (look.tag == ']' || look.tag == ';' || look.tag == '}' || look.tag == Tag.END) {
+            return;
+        } else {
+            error("Error in idlistp");
         }
     }
 
     void optlist() {
-        optitem();
-        optlistp();
+        if (look.tag == Tag.OPTION) {
+            optitem();
+            optlistp();
+        } else {
+            error("error in optlist");
+        }
+
     }
 
     void optlistp() {
-        if (look.tag == Tag.OPTION) { // !!!!!!
+        if (look.tag == Tag.OPTION) {
             optitem();
             optlistp();
+        } else if (look.tag == ']') {
+            return;
+        } else {
+            error("Error in optlistp");
         }
     }
 
     void optitem() {
-        match(Tag.OPTION);
-        match('(');
-        bexpr();
-        match(')');
-        match(Tag.DO);
-        stat();
+        if (look.tag == Tag.OPTION) {
+            match(Tag.OPTION);
+            match('(');
+            bexpr();
+            match(')');
+            match(Tag.DO);
+            stat();
+        } else {
+            error("error in optitem");
+        }
     }
 
     void bexpr() {
-        match(Tag.RELOP);
-        expr();
-        expr();
+        if (look.tag == Tag.RELOP) {
+            match(Tag.RELOP);
+            expr();
+            expr();
+        } else {
+            error("Error in bexpr");
+        }
     }
 
     void expr() {
@@ -192,13 +240,19 @@ public class Parser2 {
                 break;
 
             default:
+                error("Error in expr");
                 break;
         }
     }
 
     void exprlist() {
-        expr();
-        exprlistp();
+        if (look.tag == '+' || look.tag == '-' || look.tag == '*' || look.tag == '/' || look.tag == Tag.NUM
+                || look.tag == Tag.ID) {
+            expr();
+            exprlistp();
+        } else {
+            error("Error in exprlist");
+        }
     }
 
     void exprlistp() {
@@ -206,6 +260,10 @@ public class Parser2 {
             match(',');
             expr();
             exprlistp();
+        } else if (look.tag == ')' || look.tag == ']') {
+            return;
+        } else {
+            error("Error in exprlistp");
         }
     }
 
@@ -223,5 +281,3 @@ public class Parser2 {
         }
     }
 }
-
-// Calcolare insiemi guida per la gestione degli errori
