@@ -38,7 +38,7 @@ NULL(idlistp)
 NULL(optlistp)
 NULL(exprlistp)
 
-FIRST(prog)-> {assign,print,read,while,conditional,{,$}
+FIRST(prog)-> {assign,print,read,while,conditional,{}
 FIRST(statlist)-> {assign,print,read,while,conditional,{ }
 FIRST(statlistp)-> {;,$}
 FIRST(stat)-> {assign,print,read,while,conditional,{ }
@@ -51,9 +51,35 @@ FIRST(expr)->{+,-,*,/,NUM,ID}
 FIRST(exprlist)->{+,-,*,/,NUM,ID}
 FIRST(exprlistp)->{ , , $}
 
-
-
-
+GUIDA(prog -> <statlist> EOF) = {assign, print, read, while, conditional, { }
+GUIDA(statlist -> <stat> <statlistp>) = {assign, print, read, while, conditional, { }
+GUIDA(statlistp -> ; <stat> <statlistp>) = {;}
+GUIDA(statlistp -> ε) = {$}
+GUIDA(stat -> assign...) = {assign}
+GUIDA(stat -> print...) = {print}
+GUIDA(stat -> read...) = {read}
+GUIDA(stat -> while...) = {while}
+GUIDA(stat -> conditional...} = {conditional}
+GUIDA(stat -> { <statlist> }) = { { };
+GUIDA(statp -> end) = {end}
+GUIDA(statp -> else...) = {else}
+GUIDA(idlist -> ID...) = {ID}
+GUIDA(idlistp -> , ID <idlistp>) = {,}
+GUIDA(idlistp -> ε) = { ] }
+GUIDA(optlist -> <optitem> <optlistp>) = {option}
+GUIDA(optlistp -> <optitem> <optlistp>) = {option}
+GUIDA(optlistp -> ε) = { ] }
+GUIDA(optitem -> option...) = {option}
+GUIDA(bexpr -> RELOP...) = {RELOP}
+GUIDA(expr -> +...) = {+}
+GUIDA(expr -> -...) = {-}
+GUIDA(expr -> *...) = {*}
+GUIDA(expr -> /...) = {/}
+GUIDA(expr -> NUM) = {NUM}
+GUIDA(ezpr -> ID) = {ID}
+GUIDA(exprlist -> <expr><exprlistp>) = {+, -, *, /, NUM, ID}
+GUIDA(exprlistp -> , <expr><exprlistp>) = {,}
+GUIDA(exprlistp -> ε) = {)}
 
 
 
